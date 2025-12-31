@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy New Year ✨</title>
+    
+    <!-- Google Font: Comfortaa (futuristic but cute and soft) -->
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==================== GLOBAL RESET & BASE STYLES ==================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comfortaa', cursive;
+            background: linear-gradient(135deg, #1a0b2e 0%, #2d1b4e 30%, #1e0a3c 70%, #0f051d 100%);
+            color: #f0e6ff;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ==================== ANIMATED BACKGROUND CONTAINER ==================== */
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        /* ==================== FLOWER STYLES ==================== */
+        .flower {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            animation: floatFlower 15s ease-in-out infinite;
+            opacity: 0;
+        }
+
+        /* Flower petals structure */
+        .flower-bloom {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            animation: bloomRotate 20s linear infinite;
+        }
+
+        .petal {
+            position: absolute;
+            width: 20px;
+            height: 30px;
+            background: linear-gradient(135deg, #ff6ec7 0%, #b967ff 100%);
+            border-radius: 50% 50% 50% 0;
+            opacity: 0.85;
+            box-shadow: 0 0 15px rgba(255, 110, 199, 0.6),
+                        inset 0 0 10px rgba(255, 255, 255, 0.3);
+            transform-origin: bottom center;
+        }
+
+        /* Arrange 5 petals in a circle */
+        .petal:nth-child(1) { 
+            top: -10px; 
+            left: 15px;
+            transform: rotate(0deg);
+        }
+        .petal:nth-child(2) { 
+            top: 5px; 
+            right: 3px;
+            transform: rotate(72deg);
+        }
+        .petal:nth-child(3) { 
+            bottom: 0; 
+            right: 8px;
+            transform: rotate(144deg);
+        }
+        .petal:nth-child(4) { 
+            bottom: 0; 
+            left: 8px;
+            transform: rotate(216deg);
+        }
+        .petal:nth-child(5) { 
+            top: 5px; 
+            left: 3px;
+            transform: rotate(288deg);
+        }
+
+        /* Flower center */
+        .flower-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 12px;
+            height: 12px;
+            background: radial-gradient(circle, #ffe55d 0%, #ffb347 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 12px rgba(255, 229, 93, 0.9);
+            z-index: 5;
+        }
+
+        /* Floating animation for flowers */
+        @keyframes floatFlower {
+            0% {
+                transform: translateY(100vh) translateX(0) rotate(0deg) scale(0.7);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.9;
+            }
+            90% {
+                opacity: 0.9;
+            }
+            100% {
+                transform: translateY(-120px) translateX(100px) rotate(360deg) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* Gentle rotation */
+        @keyframes bloomRotate {
+            0%, 100% {
+                transform: rotate(0deg) scale(1);
+            }
+            50% {
+                transform: rotate(180deg) scale(1.1);
+            }
+        }
+
+        /* ==================== BUTTERFLY STYLES ==================== */
+        .butterfly {
+            position: absolute;
+            width: 40px;
+            height: 30px;
+            animation: butterflyFly 12s ease-in-out infinite;
+            opacity: 0;
+        }
+
+        .butterfly-body {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 4px;
+            height: 24px;
+            background: linear-gradient(180deg, #4a5568 0%, #2d3748 100%);
+            border-radius: 2px;
+            z-index: 3;
+        }
+
+        /* Butterfly wings */
+        .wing {
+            position: absolute;
+            top: 50%;
+            border-radius: 50% 20% 50% 20%;
+            transform-origin: right center;
+        }
+
+        .wing-left {
+            left: 0;
+            width: 18px;
+            height: 22px;
+            background: linear-gradient(135deg, #a78bfa 0%, #7c3aed 50%, #6366f1 100%);
+            box-shadow: 0 0 12px rgba(167, 139, 250, 0.7),
+                        inset 2px 2px 8px rgba(255, 255, 255, 0.3);
+            animation: flapWing 0.3s ease-in-out infinite;
+            transform: translateY(-50%);
+        }
+
+        .wing-right {
+            right: 0;
+            width: 18px;
+            height: 22px;
+            background: linear-gradient(135deg, #a78bfa 0%, #7c3aed 50%, #6366f1 100%);
+            box-shadow: 0 0 12px rgba(167, 139, 250, 0.7),
+                        inset -2px 2px 8px rgba(255, 255, 255, 0.3);
+            animation: flapWing 0.3s ease-in-out infinite;
+            animation-direction: reverse;
+            transform: translateY(-50%);
+        }
+
+        /* Wing flapping animation */
+        @keyframes flapWing {
+            0%, 100% {
+                transform: translateY(-50%) rotateY(0deg);
+            }
+            50% {
+                transform: translateY(-50%) rotateY(40deg);
+            }
+        }
+
+        /* Butterfly flight path */
+        @keyframes butterflyFly {
+            0% {
+                transform: translate(-100px, 100vh) rotate(0deg);
+                opacity: 0;
+            }
+            5% {
+                opacity: 1;
+            }
+            25% {
+                transform: translate(20vw, 60vh) rotate(15deg);
+            }
+            50% {
+                transform: translate(50vw, 30vh) rotate(-10deg);
+            }
+            75% {
+                transform: translate(80vw, 50vh) rotate(20deg);
+            }
+            95% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(110vw, 20vh) rotate(-15deg);
+                opacity: 0;
+            }
+        }
+
+        /* ==================== MAIN CONTENT CONTAINER ==================== */
+        .container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 2rem;
+            max-width: 850px;
+            width: 100%;
+        }
+
+        /* Content fade in animation */
+        .content-wrapper {
+            animation: fadeSlideIn 1.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeSlideIn {
+            0% {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ==================== TYPOGRAPHY ==================== */
+        .main-heading {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #a78bfa 0%, #ec4899 50%, #f472b6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 30px rgba(167, 139, 250, 0.6));
+            letter-spacing: 3px;
+            animation: textGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes textGlow {
+            0%, 100% {
+                filter: drop-shadow(0 0 20px rgba(167, 139, 250, 0.5));
+            }
+            50% {
+                filter: drop-shadow(0 0 40px rgba(236, 72, 153, 0.8));
+            }
+        }
+
+        .sub-heading {
+            font-size: clamp(1.1rem, 3vw, 1.5rem);
+            font-weight: 400;
+            color: #ddd6fe;
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+            text-shadow: 0 0 20px rgba(221, 214, 254, 0.4);
+        }
+
+        .dedication {
+            font-size: clamp(1.2rem, 3.5vw, 1.8rem);
+            font-weight: 500;
+            margin-bottom: 3rem;
+            color: #c4b5fd;
+            font-style: italic;
+        }
+
+        .dedication .name {
+            display: inline-block;
+            font-weight: 700;
+            font-style: normal;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #ef4444 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.6));
+            animation: nameShine 3s ease-in-out infinite;
+        }
+
+        @keyframes nameShine {
+            0%, 100% {
+                filter: drop-shadow(0 0 15px rgba(251, 191, 36, 0.5));
+            }
+            50% {
+                filter: drop-shadow(0 0 30px rgba(245, 158, 11, 0.9));
+            }
+        }
+
+        /* ==================== INTERACTIVE BUTTON ==================== */
+        .reveal-button {
+            padding: 1.2rem 3rem;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            font-weight: 600;
+            font-family: 'Comfortaa', cursive;
+            color: #0f051d;
+            background: linear-gradient(135deg, #a78bfa 0%, #ec4899 100%);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 0 30px rgba(167, 139, 250, 0.5);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .reveal-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .reveal-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 0 50px rgba(236, 72, 153, 0.8),
+                        0 10px 30px rgba(167, 139, 250, 0.4);
+        }
+
+        .reveal-button:hover::before {
+            left: 100%;
+        }
+
+        .reveal-button:active {
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        /* ==================== HIDDEN MESSAGE BOX ==================== */
+        .message-box {
+            margin-top: 3rem;
+            padding: 2.5rem;
+            background: linear-gradient(135deg, rgba(30, 27, 75, 0.85) 0%, rgba(55, 48, 107, 0.85) 100%);
+            border: 2px solid rgba(167, 139, 250, 0.4);
+            border-radius: 25px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 0 40px rgba(167, 139, 250, 0.3),
+                        inset 0 0 30px rgba(236, 72, 153, 0.1);
+            opacity: 0;
+            transform: scale(0.9) translateY(20px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .message-box.show {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
+        .message-box p {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            line-height: 2;
+            color: #e9d5ff;
+            font-weight: 400;
+            text-shadow: 0 0 10px rgba(233, 213, 255, 0.3);
+        }
+
+        /* ==================== SPARKLE EFFECTS ==================== */
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
+            animation: sparkleFloat 8s ease-in-out infinite;
+            opacity: 0;
+        }
+
+        @keyframes sparkleFloat {
+            0%, 100% {
+                opacity: 0;
+                transform: translateY(0) scale(0);
+            }
+            10% {
+                opacity: 1;
+                transform: translateY(-20px) scale(1);
+            }
+            90% {
+                opacity: 1;
+                transform: translateY(-400px) scale(0.5);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-500px) scale(0);
+            }
+        }
+
+        /* ==================== RESPONSIVE DESIGN ==================== */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem;
+            }
+
+            .flower {
+                width: 35px;
+                height: 35px;
+            }
+
+            .butterfly {
+                width: 30px;
+                height: 22px;
+            }
+
+            .message-box {
+                padding: 2rem;
+            }
+
+            .main-heading {
+                letter-spacing: 2px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .reveal-button {
+                padding: 1rem 2rem;
+            }
+
+            .message-box {
+                padding: 1.5rem;
+                margin-top: 2rem;
+            }
+
+            .dedication {
+                margin-bottom: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated background with flowers and butterflies -->
+    <div class="background-animation" id="bgAnimation"></div>
+
+    <!-- Main content container -->
+    <div class="container">
+        <div class="content-wrapper">
+            <!-- Main greeting heading -->
+            <h1 class="main-heading">Happy New Year</h1>
+
+            <!-- Subtitle message -->
+            <p class="sub-heading">Wishing you peace, love and beautiful beginnings</p>
+
+            <!-- Personalized dedication -->
+            <div class="dedication">
+                For <span class="name">Chikkii</span> ✨
+            </div>
+
+            <!-- Interactive reveal button -->
+            <button class="reveal-button" id="revealBtn">
+                💌 A Special Message For You
+            </button>
+
+            <!-- Hidden message (shown on button click) -->
+            <div class="message-box" id="messageBox">
+                <p>
+                    Happy New Year! I'm truly grateful you're in my life. May this year bring you the happiness you quietly deserve. You deserve a year full of love, courage, and moments that make your heart feel light. ✨💜
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== ANIMATED BACKGROUND GENERATION ====================
+        const bgAnimation = document.getElementById('bgAnimation');
+
+        // Function to create a flower element
+        function createFlower() {
+            const flower = document.createElement('div');
+            flower.className = 'flower';
+            
+            // Random horizontal starting position
+            flower.style.left = Math.random() * 100 + '%';
+            
+            // Random animation duration for variety (12-20 seconds)
+            flower.style.animationDuration = (12 + Math.random() * 8) + 's';
+            
+            // Random delay for staggered appearance
+            flower.style.animationDelay = Math.random() * 5 + 's';
+
+            // Create flower structure
+            const bloom = document.createElement('div');
+            bloom.className = 'flower-bloom';
+
+            // Create 5 petals
+            for (let i = 0; i < 5; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                bloom.appendChild(petal);
+            }
+
+            // Create flower center
+            const center = document.createElement('div');
+            center.className = 'flower-center';
+            bloom.appendChild(center);
+
+            flower.appendChild(bloom);
+            bgAnimation.appendChild(flower);
+        }
+
+        // Function to create a butterfly element
+        function createButterfly() {
+            const butterfly = document.createElement('div');
+            butterfly.className = 'butterfly';
+            
+            // Random vertical starting position
+            butterfly.style.top = (20 + Math.random() * 60) + '%';
+            
+            // Random animation duration (10-16 seconds)
+            butterfly.style.animationDuration = (10 + Math.random() * 6) + 's';
+            
+            // Random delay
+            butterfly.style.animationDelay = Math.random() * 8 + 's';
+
+            // Create butterfly structure
+            const body = document.createElement('div');
+            body.className = 'butterfly-body';
+
+            const wingLeft = document.createElement('div');
+            wingLeft.className = 'wing wing-left';
+
+            const wingRight = document.createElement('div');
+            wingRight.className = 'wing wing-right';
+
+            butterfly.appendChild(wingLeft);
+            butterfly.appendChild(body);
+            butterfly.appendChild(wingRight);
+
+            bgAnimation.appendChild(butterfly);
+        }
+
+        // Function to create sparkle effects
+        function createSparkle() {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.style.left = Math.random() * 100 + '%';
+            sparkle.style.top = Math.random() * 100 + '%';
+            sparkle.style.animationDelay = Math.random() * 5 + 's';
+            bgAnimation.appendChild(sparkle);
+        }
+
+        // Generate multiple flowers (8-12 flowers)
+        const flowerCount = 10;
+        for (let i = 0; i < flowerCount; i++) {
+            createFlower();
+        }
+
+        // Generate multiple butterflies (6-8 butterflies)
+        const butterflyCount = 7;
+        for (let i = 0; i < butterflyCount; i++) {
+            createButterfly();
+        }
+
+        // Generate sparkles (15-20 sparkles)
+        const sparkleCount = 18;
+        for (let i = 0; i < sparkleCount; i++) {
+            createSparkle();
+        }
+
+        // ==================== INTERACTIVE BUTTON FUNCTIONALITY ====================
+        const revealBtn = document.getElementById('revealBtn');
+        const messageBox = document.getElementById('messageBox');
+
+        revealBtn.addEventListener('click', function() {
+            // Toggle the message box visibility
+            messageBox.classList.toggle('show');
+            
+            // Change button text based on state
+            if (messageBox.classList.contains('show')) {
+                revealBtn.innerHTML = '✨ Hide Message';
+            } else {
+                revealBtn.innerHTML = '💌 A Special Message For You';
+            }
+            
+            // Smooth scroll to message if showing
+            if (messageBox.classList.contains('show')) {
+                setTimeout(() => {
+                    messageBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 300);
+            }
+        });
+
+        // Add slight parallax effect on mouse move (optional enhancement)
+        document.addEventListener('mousemove', function(e) {
+            const flowers = document.querySelectorAll('.flower');
+            const butterflies = document.querySelectorAll('.butterfly');
+            
+            const moveX = (e.clientX / window.innerWidth - 0.5) * 20;
+            const moveY = (e.clientY / window.innerHeight - 0.5) * 20;
+            
+            flowers.forEach((flower, index) => {
+                const depth = (index % 3 + 1) * 0.3;
+                flower.style.transform = `translate(${moveX * depth}px, ${moveY * depth}px)`;
+            });
+        });
+    </script>
+</body>
+</html>
